@@ -1,0 +1,105 @@
+.layout {
+  background-color: rgb(255, 255, 255);
+  color: rgba(76, 78, 100, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 10px;
+  box-shadow: rgba(76, 78, 100, 0.22) 0px 2px 10px 0px;
+}
+.inputContainer {
+  background-color: rgb(255, 255, 255);
+  color: rgba(76, 78, 100, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 10px;
+  box-shadow: rgba(76, 78, 100, 0.22) 0px 2px 10px 0px;
+}
+.titleBox {
+  padding: 20px;
+}
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+  padding: 0 20px 1.25rem 20px;
+}
+.invoiceContainer {
+  background-color: rgb(255, 255, 255);
+  color: rgba(76, 78, 100, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 10px;
+  box-shadow: rgba(76, 78, 100, 0.22) 0px 2px 10px 0px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.headerBox {
+  padding: 20px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.invoiceForm {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.previewContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  gap: 24px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.buttonBox {
+  background-color: rgb(255, 255, 255);
+  color: rgba(76, 78, 100, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 10px;
+  box-shadow: rgba(76, 78, 100, 0.22) 0px 2px 10px 0px;
+  padding: 20px;
+  gap: 14px;
+  width: 310px;
+}
+.button {
+  border-radius: 8px;
+}
+.boxContainer {
+  width: 76.3%;
+  background-color: rgb(255, 255, 255);
+  color: rgba(76, 78, 100, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 10px;
+  box-shadow: rgba(76, 78, 100, 0.22) 0px 2px 10px 0px;
+}
+.firstBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+.paraBox {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  line-height: 1.429;
+  letter-spacing: 0.15px;
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(76, 78, 100, 0.6);
+}
+.rightBox {
+  display: flex;
+  height: 100%;
+}
