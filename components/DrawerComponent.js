@@ -9,7 +9,6 @@ import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowRightRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowRightRounded";
 import Logo from "../assets/Logo";
 import EmailOutlined from "@mui/icons-material/EmailOutlined";
-import Header from "./Drawer/Header";
 import AllMenus from "./Drawer/AllMenus";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
@@ -29,6 +28,9 @@ import WindowOutlinedIcon from "@mui/icons-material/WindowOutlined";
 import ViewInArOutlinedIcon from "@mui/icons-material/ViewInArOutlined";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import HomeOutlined from "@mui/icons-material/HomeOutlined";
+import Style from "../Layout/dashboard.module.css";
+import { useUserContext } from "@/pages/_app";
+import { Close } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -48,11 +50,11 @@ const drawerArray = [
           },
           {
             name: "Analytics",
-            to: "#",
+            to: "/dashboards/analytics",
           },
           {
             name: "eCommerce",
-            to: "#",
+            to: "/dashboards/ecommerce",
           },
         ],
       },
@@ -98,7 +100,7 @@ const drawerArray = [
           },
           {
             name: "Edit",
-            to: "#",
+            to: "/invoice/edit",
           },
           {
             name: "Add",
@@ -391,38 +393,37 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  width: drawerWidth,
-  flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
-  ...(open && {
-    ...openedMixin(theme),
-    "& .MuiDrawer-paper": openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
-  }),
-}));
-
 export default function DrawerComponent({ positionChange, setpositionChange }) {
   const [open, setOpen] = useState(false);
   const [selectedMenu, setselectedMenu] = useState("Home");
   const [isSelected, setisSelected] = useState(false);
+  const { isOpen, setisOpen } = useUserContext();
 
+  const Drawer = styled(MuiDrawer, {
+    shouldForwardProp: (prop) => prop !== "open",
+  })(({ theme, open }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: "nowrap",
+    boxSizing: "border-box",
+    ...(open && {
+      ...openedMixin(theme),
+      "& .MuiDrawer-paper": openedMixin(theme),
+    }),
+    ...(!open && {
+      ...closedMixin(theme),
+      "& .MuiDrawer-paper": isOpen ? openedMixin(theme) : closedMixin(theme),
+    }),
+  }));
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
   const handleDrawerClose = () => {
-    !positionChange && setOpen(false);
+    isOpen ? setOpen(true) : !positionChange && setOpen(false);
   };
 
   return (
-    <Box className="ScrollBar" sx={{ display: "flex" }}>
+    <Box className={Style.drawer}>
       <CssBaseline />
       <Drawer
         onMouseLeave={handleDrawerClose}
@@ -430,8 +431,10 @@ export default function DrawerComponent({ positionChange, setpositionChange }) {
         variant="permanent"
         open={open}
         sx={{
+          position: { xs: isOpen ? "absolute" : "static", lg: "static" },
+          display: { xs: isOpen ? "block" : "none", lg: "block" },
           "& .MuiPaper-root": {
-            overflow: "hidden",
+            overflow: { xs: "scroll", sm: "scroll", md: "hidden" },
             background: "#f7f7f9",
             border: "none",
           },
@@ -440,7 +443,16 @@ export default function DrawerComponent({ positionChange, setpositionChange }) {
           },
         }}
       >
-        <DrawerHeader sx={{ display: "flex", justifyContent: "space-between" }}>
+        <DrawerHeader
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            position: { xs: "sticky", md: "static" },
+            backgroundColor: { xs: "#f5f5f7" },
+            top: 0,
+            zIndex: { xs: 1 },
+          }}
+        >
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <Logo customWidth={"40"} />
             <Typography
@@ -458,13 +470,18 @@ export default function DrawerComponent({ positionChange, setpositionChange }) {
           </div>
           <IconButton
             onClick={() => {
-              setpositionChange((p) => !p);
+              isOpen ? setisOpen(false) : setpositionChange((p) => !p);
             }}
           >
+            <Close sx={{ display: { lg: "none", md: "block" } }} />
             {!positionChange ? (
-              <KeyboardDoubleArrowRightRoundedIcon />
+              <KeyboardDoubleArrowRightRoundedIcon
+                sx={{ display: { xs: isOpen && "none", lg: "block" } }}
+              />
             ) : (
-              <KeyboardDoubleArrowLeftIcon />
+              <KeyboardDoubleArrowLeftIcon
+                sx={{ display: { xs: isOpen && "none", lg: "block" } }}
+              />
             )}
           </IconButton>
         </DrawerHeader>

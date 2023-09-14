@@ -16,6 +16,9 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import BedtimeOutlinedIcon from "@mui/icons-material/BedtimeOutlined";
 import TranslateOutlinedIcon from "@mui/icons-material/TranslateOutlined";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import Style from "../Layout/dashboard.module.css";
+import { useUserContext } from "@/pages/_app";
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
@@ -36,6 +39,7 @@ export default function AppBarComponent({ handleScroll }) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const { isOpen, setisOpen } = useUserContext();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -152,6 +156,14 @@ export default function AppBarComponent({ handleScroll }) {
         }}
       >
         <Toolbar>
+          <IconButton
+            className={Style.menuIcon}
+            onClick={() => {
+              setisOpen((p) => !p);
+            }}
+          >
+            <MenuOutlinedIcon />
+          </IconButton>
           <SearchIcon />
           <StyledInputBase
             placeholder="Search (Ctrl+/)"

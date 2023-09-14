@@ -53,28 +53,32 @@ export default function InvoicePreviewTable() {
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.desc}>
-              <TableCell>{row.item}</TableCell>
+              <TableCell align="left">{row.item}</TableCell>
               <TableCell align="left">{row.desc}</TableCell>
               <TableCell align="left">{row.unit}</TableCell>
               <TableCell align="left">{row.qty}</TableCell>
-              <TableCell align="left">{ccyFormat(row.price)}</TableCell>
+              <TableCell align="left">$ {ccyFormat(row.price)}</TableCell>
             </TableRow>
           ))}
           <TableRow>
             <TableCell rowSpan={3} />
-            <TableCell colSpan={2}>Subtotal</TableCell>
-            <TableCell align="left">{ccyFormat(invoiceSubtotal)}</TableCell>
+            <TableCell align="right" colSpan={3}>Subtotal</TableCell>
+            <TableCell align="right">{ccyFormat(invoiceSubtotal)}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Tax</TableCell>
-            <TableCell align="left">{`${(TAX_RATE * 100).toFixed(
+            <TableCell rowSpan={3} />
+            <TableCell align="right" colSpan={2}>
+              Tax
+            </TableCell>
+            <TableCell align="right">{`${(TAX_RATE * 100).toFixed(
               0
             )} %`}</TableCell>
-            <TableCell align="left">{ccyFormat(invoiceTaxes)}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell colSpan={2}>Total</TableCell>
-            <TableCell align="left">{ccyFormat(invoiceTotal)}</TableCell>
+            <TableCell align="right" colSpan={2}>
+              Total
+            </TableCell>
+            <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
           </TableRow>
         </TableBody>
       </Table>

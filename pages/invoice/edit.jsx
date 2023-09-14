@@ -1,6 +1,6 @@
 import DashboardLayout from "@/Layout/DashboardLayout";
 import Stack from "@mui/material/Stack";
-import React from "react";
+import React, { useState } from "react";
 import style from "./list.module.css";
 import Box from "@mui/material/Box";
 import Logo from "@/assets/Logo";
@@ -9,9 +9,56 @@ import Button from "@mui/material/Button";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import Divider from "@mui/material/Divider";
-import InvoicePreviewTable from "@/components/InvoicePreviewTable";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Switch from "@mui/material/Switch";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InvoiceEditTable from "@/components/InvoiceEditTable";
 
-export default function preview() {
+const UsersArray = [
+  {
+    name: "Jordan Stevenson",
+    about: "Hall-Robbins PLC",
+    address: "7777 Mendez Plains",
+    phone: "(616) 865-4180",
+    mail: "don85@johnson.com",
+  },
+  {
+    name: "Stephanie Burns",
+    about: "Mccann LLC and Sons",
+    address: "04033 Wesley Wall Apt. 961",
+    phone: "(226) 204-8287",
+    mail: "brenda49@taylor.info",
+  },
+  {
+    name: "Tony Herrera",
+    about: "Leonard-Garcia and Sons",
+    address: "5345 Robert Squares",
+    phone: "(955) 676-1076",
+    mail: "smithtiffany@powers.com",
+  },
+  {
+    name: "Kevin Patton",
+    about: "Smith, Miller and Henry LLC",
+    address: "19022 Clark Parks Suite 149",
+    phone: "(832) 323-6914",
+    mail: "mejiageorge@lee-perez.com",
+  },
+  {
+    name: "Mrs. Juli Donovan MD",
+    about: "Garcia-Cameron and Sons",
+    address: "8534 Saunders Hill Apt. 583",
+    phone: "(970) 982-3353",
+    mail: "brandon07@pierce.com",
+  },
+];
+
+export default function Edit() {
+  const [getDatas, setgetDatas] = useState("");
+  const userData = UsersArray.find((data) => data.name === getDatas);
+
   return (
     <DashboardLayout>
       <Stack className={style.previewContainer}>
@@ -39,8 +86,8 @@ export default function preview() {
                 <p>+1 (123) 456 7891, +44 (876) 543 2198</p>
               </Box>
             </Stack>
-            <Box className={style.rightBox}>
-              <Box className={style.paraBox}>
+            <Stack gap>
+              <Box className={style.editRightBox}>
                 <Typography
                   variant="h6"
                   sx={{
@@ -52,10 +99,9 @@ export default function preview() {
                 >
                   Invoice
                 </Typography>
-                <p>Date Issued: </p>
-                <p>Date Due: </p>
+                
               </Box>
-              <Box className={style.paraBox}>
+              <Box className={style.editRightBox}>
                 <Typography
                   variant="h6"
                   sx={{
@@ -65,12 +111,25 @@ export default function preview() {
                     letterSpacing: "0.18px",
                   }}
                 >
-                  #4987
+                  Invoice
                 </Typography>
-                <p>13 Sep 2023</p>
-                <p>23 Sep 2023</p>
+                
               </Box>
-            </Box>
+              <Box className={style.editRightBox}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: "20px",
+                    fontWeight: 500,
+                    color: "rgba(76, 78, 100, 0.87)",
+                    letterSpacing: "0.18px",
+                  }}
+                >
+                  Invoice
+                </Typography>
+               
+              </Box>
+            </Stack>
           </Box>
           <Divider />
           <Box className={style.firstBox}>
@@ -90,11 +149,34 @@ export default function preview() {
               </Box>
               <Box className={style.rightBox}>
                 <Box className={style.paraBox}>
-                  <p>Jordan Stevenson</p>
-                  <p>Hall-Robbins PLC</p>
-                  <p>7777 Mendez Plains</p>
-                  <p>(616) 865-4180</p>
-                  <p>don85@johnson.com</p>
+                  <FormControl
+                    size="small"
+                    sx={{ minWidth: 120, width: "200px" }}
+                  >
+                    <Select
+                      defaultValue="Jordan Stevenson"
+                      size="small"
+                      sx={{
+                        borderRadius: "8px",
+                        color: "rgba(76, 78, 100, 0.6)",
+                      }}
+                      onChange={(e) => {
+                        setgetDatas(e.target.value, "ONCLICK");
+                      }}
+                    >
+                      {UsersArray.map((user, index) => {
+                        return (
+                          <MenuItem key={index} value={user.name}>
+                            {user.name}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                  <p>{userData ? userData?.about : "Hall-Robbins PLC"}</p>
+                  <p>{userData ? userData?.address : "7777 Mendez Plains"}</p>
+                  <p>{userData ? userData?.phone : "(616) 865-4180"}</p>
+                  <p>{userData ? userData?.mail : "don85@johnson.com"}</p>
                 </Box>
               </Box>
             </Stack>
@@ -131,7 +213,7 @@ export default function preview() {
             </Stack>
           </Box>
           <Divider />
-          <InvoicePreviewTable />
+          <InvoiceEditTable />
           <Divider />
           <Box className={style.firstBox}>
             <Stack gap="12px">
@@ -156,7 +238,7 @@ export default function preview() {
             </Stack>
           </Box>
         </Stack>
-        <Stack>
+        <Stack className={style.rightContainer}>
           <Stack className={style.buttonBox}>
             <Button
               sx={{
@@ -184,7 +266,7 @@ export default function preview() {
               className={style.button}
               variant="outlined"
             >
-              Download
+              Preview
             </Button>
             <Button
               sx={{
@@ -198,21 +280,7 @@ export default function preview() {
               className={style.button}
               variant="outlined"
             >
-              Print
-            </Button>
-            <Button
-              sx={{
-                border: "1px solid rgba(109, 120, 141, 0.5)",
-                color: "rgb(109, 120, 141)",
-                "&:hover": {
-                  backgroundColor: "rgba(109, 120, 141, 0.08)",
-                  border: "1px solid rgb(109, 120, 141)",
-                },
-              }}
-              className={style.button}
-              variant="outlined"
-            >
-              Edit Invoice
+              Save
             </Button>
             <Button
               sx={{
@@ -229,6 +297,58 @@ export default function preview() {
               Add Payment
             </Button>
           </Stack>
+          <FormControl fullWidth sx={{ minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-helper-label">
+              Accept payment via
+            </InputLabel>
+            <Select
+              defaultValue={"Internet Banking"}
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              label="Invoice Status"
+              fullWidth
+              sx={{ borderRadius: "10px" }}
+            >
+              <MenuItem value={"Internet Banking"}>Internet Banking</MenuItem>
+              <MenuItem value={"Debit Card"}>Debit Card</MenuItem>
+              <MenuItem value={"Credit Card"}>Credit Card</MenuItem>
+              <MenuItem value={"Paypal"}>Paypal</MenuItem>
+              <MenuItem value={"UPI Transfer"}>UPI Transfer</MenuItem>
+            </Select>
+          </FormControl>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography className={style.text}>Payment Terms</Typography>
+            <Switch defaultChecked />
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography className={style.text}>Client Notes</Typography>
+            <Switch />
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography className={style.text}>Payment Stub</Typography>
+            <Switch />
+          </Box>
         </Stack>
       </Stack>
     </DashboardLayout>
