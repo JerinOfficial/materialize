@@ -13,6 +13,8 @@ import MoreVert from "@mui/icons-material/MoreVert";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import DashboardTable from "@/components/DashboardTable";
+import CircleEchart from "@/components/Charts/CircleEchart";
+import { visitByDayOption } from "@/components/Charts/Options/AllOptions";
 
 export default function Ecommerce() {
   return (
@@ -136,7 +138,7 @@ export default function Ecommerce() {
               <span
                 style={{
                   background: "rgba(109, 120, 141, 0.12)",
-                  color: "rgba(76, 78, 100, 0.6);",
+                  color: "rgba(76, 78, 100, 0.6)",
                   borderRadius: "16px",
                   fontSize: "0.75rem",
                   alignSelf: "flex-start",
@@ -221,15 +223,16 @@ export default function Ecommerce() {
                     fontWeight: 500,
                   }}
                 >
-                  Weekly Sales
+                  Visit By Day
                 </Typography>
                 <IconButton>
                   <MoreVert />
                 </IconButton>
               </Box>
+              <CircleEchart options={visitByDayOption} />
             </Box>
           </Grid>
-          <Grid item md={4} sm={6} xs={12}>
+          {/* <Grid item md={4} sm={6} xs={12}>
             <Box className={`${Style.layout} ${Style.largeHeight}`}>
               <Box
                 sx={{
@@ -280,7 +283,7 @@ export default function Ecommerce() {
                 </IconButton>
               </Box>
             </Box>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Box>
     </DashboardLayout>

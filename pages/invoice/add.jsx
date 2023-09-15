@@ -7,7 +7,6 @@ import Logo from "@/assets/Logo";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
-import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import Divider from "@mui/material/Divider";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -16,6 +15,7 @@ import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InvoiceEditTable from "@/components/InvoiceEditTable";
+import SwipeDrawer from "@/components/Drawer/SwipeDrawer";
 
 const UsersArray = [
   {
@@ -55,9 +55,10 @@ const UsersArray = [
   },
 ];
 
-export default function Edit() {
+export default function Add() {
   const [getDatas, setgetDatas] = useState("");
   const userData = UsersArray.find((data) => data.name === getDatas);
+  const [openDrawer, setopenDrawer] = useState(false);
 
   return (
     <DashboardLayout>
@@ -164,7 +165,7 @@ export default function Edit() {
                     sx={{ minWidth: 120, width: "200px" }}
                   >
                     <Select
-                      defaultValue="Jordan Stevenson"
+                      defaultValue=""
                       size="small"
                       sx={{
                         borderRadius: "8px",
@@ -174,6 +175,21 @@ export default function Edit() {
                         setgetDatas(e.target.value, "ONCLICK");
                       }}
                     >
+                      <MenuItem
+                        sx={{
+                          color: "#72e128",
+                          "&:hover": {
+                            backgroundColor:
+                              "rgba(114, 225, 40, 0.1) !important",
+                          },
+                        }}
+                        value=""
+                        onClick={() => {
+                          setopenDrawer(true);
+                        }}
+                      >
+                        Add New Customer
+                      </MenuItem>
                       {UsersArray.map((user, index) => {
                         return (
                           <MenuItem key={index} value={user.name}>
@@ -183,10 +199,10 @@ export default function Edit() {
                       })}
                     </Select>
                   </FormControl>
-                  <p>{userData ? userData?.about : "Hall-Robbins PLC"}</p>
-                  <p>{userData ? userData?.address : "7777 Mendez Plains"}</p>
-                  <p>{userData ? userData?.phone : "(616) 865-4180"}</p>
-                  <p>{userData ? userData?.mail : "don85@johnson.com"}</p>
+                  <p>{userData ? userData?.about : ""}</p>
+                  <p>{userData ? userData?.address : ""}</p>
+                  <p>{userData ? userData?.phone : ""}</p>
+                  <p>{userData ? userData?.mail : ""}</p>
                 </Box>
               </Box>
             </Stack>
@@ -374,20 +390,6 @@ export default function Edit() {
               variant="outlined"
             >
               Save
-            </Button>
-            <Button
-              sx={{
-                background: "#72e128 !important",
-                color: "white",
-                "&:hover": {
-                  backgroundColor: "rgb(100, 198, 35)",
-                  boxShadow: "rgba(76, 78, 100, 0.56) 0px 6px 18px -8px",
-                },
-              }}
-              className={style.button}
-              startIcon={<AttachMoneyOutlinedIcon />}
-            >
-              Add Payment
             </Button>
           </Stack>
           <FormControl fullWidth sx={{ minWidth: 120 }}>

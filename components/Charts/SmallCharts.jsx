@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import * as echarts from "echarts";
 import { Box } from "@mui/material";
 
-function CircleEchart({ options }) {
+function SmallCharts({ options }) {
   const chartRef = useRef(null);
 
   useEffect(() => {
@@ -14,12 +14,7 @@ function CircleEchart({ options }) {
     };
   }, [options]);
 
-  return (
-    <Box
-      ref={chartRef}
-      style={{ width: { xl: "100%", xs: "100%" }, height: "100%" }}
-    ></Box>
-  );
+  return <Box ref={chartRef} style={{ width: "100%", height: "90%" }}></Box>;
 }
 
-export default CircleEchart;
+export default SmallCharts;

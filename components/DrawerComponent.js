@@ -104,7 +104,7 @@ const drawerArray = [
           },
           {
             name: "Add",
-            to: "#",
+            to: "/invoice/add",
           },
         ],
       },

@@ -12,6 +12,13 @@ import IconButton from "@mui/material/IconButton";
 import MoreVert from "@mui/icons-material/MoreVert";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
+import SmallCharts from "@/components/Charts/SmallCharts";
+import {
+  lineOption,
+  performanceOption,
+  transactionOption,
+} from "@/components/Charts/Options/AllOptions";
+import CircleEchart from "@/components/Charts/CircleEchart";
 
 export default function Analytics() {
   return (
@@ -101,7 +108,7 @@ export default function Analytics() {
               <span
                 style={{
                   background: "rgba(109, 120, 141, 0.12)",
-                  color: "rgba(76, 78, 100, 0.6);",
+                  color: "rgba(76, 78, 100, 0.6)",
                   borderRadius: "16px",
                   fontSize: "0.75rem",
                   alignSelf: "flex-start",
@@ -147,6 +154,7 @@ export default function Analytics() {
                 </Typography>
               </Box>
               <p>Sessions</p>
+              <SmallCharts options={lineOption} />
             </Box>
           </Grid>
           <Grid item md={8} sm={12} xs={12}>
@@ -172,6 +180,7 @@ export default function Analytics() {
                 >
                   Total Transactions
                 </Typography>
+                <CircleEchart options={transactionOption} />
               </Box>
               <Divider orientation="vertical" flexItem />
               <Box
@@ -333,9 +342,10 @@ export default function Analytics() {
                   <MoreVert />
                 </IconButton>
               </Box>
+              <CircleEchart options={performanceOption} />
             </Box>
           </Grid>
-          <Grid item md={4} sm={6} xs={12}>
+          {/* <Grid item md={4} sm={6} xs={12}>
             <Box
               sx={{ height: { sm: "370", md: "424px" } }}
               className={`${Style.layout} ${Style.largeHeight}`}
@@ -460,7 +470,7 @@ export default function Analytics() {
                   <span
                     style={{
                       background: "rgba(109, 120, 141, 0.12)",
-                      color: "rgba(76, 78, 100, 0.6);",
+                      color: "rgba(76, 78, 100, 0.6)",
                       borderRadius: "16px",
                       fontSize: "0.75rem",
                       alignSelf: "flex-start",
@@ -522,7 +532,7 @@ export default function Analytics() {
                   <span
                     style={{
                       background: "rgba(109, 120, 141, 0.12)",
-                      color: "rgba(76, 78, 100, 0.6);",
+                      color: "rgba(76, 78, 100, 0.6)",
                       borderRadius: "16px",
                       fontSize: "0.75rem",
                       alignSelf: "flex-start",
@@ -705,7 +715,7 @@ export default function Analytics() {
                 </IconButton>
               </Box>
             </Box>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Box>
     </DashboardLayout>

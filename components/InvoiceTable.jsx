@@ -4,7 +4,7 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 
 const columns = [
   { field: "id", headerName: "#", width: 171 },
-  { field: "status", headerName: <TrendingUpIcon />, width: 171 },
+  { field: "status", headerName: "status", width: 171 },
   { field: "client", headerName: "Client", width: 385 },
   {
     field: "total",

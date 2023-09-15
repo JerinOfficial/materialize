@@ -138,9 +138,11 @@
 }
 
 /* resposive */
+
 @media (max-width: 899.9px) {
   .previewContainer {
     flex-direction: column;
+    
   }
   .boxContainer {
     width: 100%;

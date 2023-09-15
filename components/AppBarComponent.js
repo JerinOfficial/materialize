@@ -158,6 +158,7 @@ export default function AppBarComponent({ handleScroll }) {
         <Toolbar>
           <IconButton
             className={Style.menuIcon}
+            sx={{ display: { lg: "none", md: "none", sm: "block" } }}
             onClick={() => {
               setisOpen((p) => !p);
             }}
