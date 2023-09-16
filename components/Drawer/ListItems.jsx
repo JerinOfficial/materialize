@@ -14,6 +14,8 @@ export default function ListItems({
   isSelected,
   setisSelected,
   array,
+  closeDropdown,
+  setcloseDropdown,
 }) {
   const router = useRouter();
   return (
@@ -29,10 +31,11 @@ export default function ListItems({
           >
             <ListItemButton
               onClick={() => {
-                setselectedMenu(text.name);
-                setisSelected((p) => !p);
+                setselectedMenu(text.name === selectedMenu ? null : text.name);
+                text.isdropdown && setisSelected((p) => !p);
+                setcloseDropdown(true);
               }}
-              selected={selectedMenu === text.to}
+              selected={router.pathname.includes(text.to)}
               sx={{
                 minHeight: 48,
                 justifyContent: open ? "initial" : "center",
@@ -72,14 +75,10 @@ export default function ListItems({
             </ListItemButton>
           </ListItem>
           <>
-            {open && selectedMenu === text.name && isSelected && (
-              <DropDown
-                selectedMenu={selectedMenu}
-                setselectedMenu={setselectedMenu}
-                setisSelected={setisSelected}
-                array={text.content}
-              />
-            )}
+            <DropDown
+              open={selectedMenu === text.name && closeDropdown}
+              array={text.content}
+            />
           </>
         </div>
       ))}

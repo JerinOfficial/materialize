@@ -19,6 +19,8 @@ import TranslateOutlinedIcon from "@mui/icons-material/TranslateOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import Style from "../Layout/dashboard.module.css";
 import { useUserContext } from "@/pages/_app";
+import Avatar from "@mui/material/Avatar";
+import { useRouter } from "next/router";
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
@@ -40,6 +42,8 @@ export default function AppBarComponent({ handleScroll }) {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const { isOpen, setisOpen } = useUserContext();
+
+  const router = useRouter();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -77,6 +81,13 @@ export default function AppBarComponent({ handleScroll }) {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem
+        onClick={() => {
+          router.push("/");
+        }}
+      >
+        Logout
+      </MenuItem>
     </Menu>
   );
 
@@ -205,7 +216,7 @@ export default function AppBarComponent({ handleScroll }) {
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={""} color="error">
+              <Badge badgeContent=" " variant="dot" color="error">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -218,7 +229,17 @@ export default function AppBarComponent({ handleScroll }) {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <Badge
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                color="success"
+                badgeContent=" "
+                variant="dot"
+              >
+                <Avatar src="https://demos.pixinvent.com/materialize-nextjs-admin-template/demo-1/images/avatars/1.png" />
+              </Badge>
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>

@@ -20,6 +20,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import FormControl from "@mui/material/FormControl";
 import IconButton from "@mui/material/IconButton";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,7 @@ export default function RegisterPage() {
     email: "",
     password: "",
   });
+  const router = useRouter();
   const { email, password, name } = formDatas;
   const [nameErr, setnameErr] = useState(false);
   const [emailErr, setemailErr] = useState(false);
@@ -309,9 +311,15 @@ export default function RegisterPage() {
             >
               Already have an account?
             </Typography>
-            <Link className={`${inter.className}`} href="/" underline="none">
+            <p
+              style={{ color: "rgb(102, 108, 255)", cursor: "pointer" }}
+              onClick={() => {
+                router.push("/");
+              }}
+              className={`${inter.className}`}
+            >
               Sign in instead
-            </Link>
+            </p>
           </div>
           <Divider
             sx={{

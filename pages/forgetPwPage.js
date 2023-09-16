@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import Image from "next/image";
 import Link from "@mui/material/Link";
 import { Inter } from "next/font/google";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +17,7 @@ export default function ForgetPwPage() {
   const [email, setemail] = useState("");
   const [emailErr, setemailErr] = useState(false);
   const [errAlert, seterrAlert] = useState("email is a required field");
-
+  const router = useRouter();
   const emailOnchangeHandler = (e) => {
     setemail(e.target.value);
   };
@@ -168,9 +169,15 @@ export default function ForgetPwPage() {
               fontSize: "16px",
             }}
           >
-            <Link className={`${inter.className}`} href="/" underline="none">
+            <p
+              style={{ color: "rgb(102, 108, 255)", cursor: "pointer" }}
+              onClick={() => {
+                router.push("/");
+              }}
+              className={`${inter.className}`}
+            >
               {"< Back to login"}
-            </Link>
+            </p>
           </div>
         </Box>
       </Stack>

@@ -3,13 +3,14 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { useRouter } from "next/router";
 
-export default function DropDown({ array }) {
+export default function DropDown({ array,open }) {
   const router = useRouter();
   return (
     <>
       {array?.map((item, index) => {
         return (
           <ListItemButton
+          hidden={!open}
             onClick={() => {
               router.push(item.to);
             }}

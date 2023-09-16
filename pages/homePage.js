@@ -20,10 +20,12 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import FormControl from "@mui/material/FormControl";
 import Layout from "@/Layout/Layout";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function HomePage() {
+  const router = useRouter();
   const [hidePw, sethidePw] = useState(false);
   const [formDatas, setformDatas] = useState({
     email: "admin@materialize.com",
@@ -86,7 +88,7 @@ export default function HomePage() {
     e.preventDefault();
     if (email !== "" && password !== "") {
       console.log(formDatas, "form");
-      window.location.href = "/dashBoard";
+      router.push("/dashBoard");
       setemailErr(false);
       setpasswordErr(false);
       validation();
@@ -254,14 +256,16 @@ export default function HomePage() {
                 sx={{ color: "#4C4E6499" }}
                 className={style.resPara}
               />
-              <Link
-                href="/forgetPwPage"
-                underline="none"
+              <p
+                style={{ color: "rgb(102, 108, 255)", cursor: "pointer" }}
+                onClick={() => {
+                  router.push("/forgetPwPage");
+                }}
                 sx={{ fontSize: "14px" }}
                 className={style.resPara}
               >
                 Forgot Password?
-              </Link>
+              </p>
             </div>
 
             <Button
@@ -296,13 +300,15 @@ export default function HomePage() {
             >
               New on our platform?
             </Typography>
-            <Link
+            <p
+              style={{ color: "rgb(102, 108, 255)", cursor: "pointer" }}
+              onClick={() => {
+                router.push("/registerPage");
+              }}
               className={`${inter.className}`}
-              href="/registerPage"
-              underline="none"
             >
               Create an account
-            </Link>
+            </p>
           </div>
           <Divider
             sx={{

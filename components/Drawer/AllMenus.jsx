@@ -11,7 +11,8 @@ export default function AllMenus({
   isSelected,
   setisSelected,
   drawerArray,
- 
+  closeDropdown,
+  setcloseDropdown,
 }) {
   return (
     <>
@@ -50,6 +51,8 @@ export default function AllMenus({
                 open={open}
                 isSelected={isSelected}
                 setisSelected={setisSelected}
+                closeDropdown={closeDropdown}
+                setcloseDropdown={setcloseDropdown}
               />
             </List>
           </div>

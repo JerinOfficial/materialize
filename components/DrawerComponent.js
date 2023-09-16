@@ -40,9 +40,9 @@ const drawerArray = [
     items: [
       {
         name: "Home",
-        to: "Home",
+        to: "dashBoard",
         icon: <HomeOutlined />,
-        isSelected: false,
+        isdropdown: true,
         content: [
           {
             name: "CRM",
@@ -65,30 +65,30 @@ const drawerArray = [
     items: [
       {
         name: "Email",
-        to: "#",
+        to: "Email#",
         icon: <EmailOutlined />,
         content: null,
-        isSelected: false,
+        isdropdown: false,
       },
       {
         name: "Chat",
-        to: "#",
+        to: "Chat",
         icon: <ChatBubbleOutlineOutlinedIcon />,
         content: null,
-        isSelected: false,
+        isdropdown: false,
       },
       {
         name: "Calender",
-        to: "#",
+        to: "Calender",
         icon: <CalendarTodayOutlinedIcon />,
         content: null,
-        isSelected: false,
+        isdropdown: false,
       },
       {
         name: "Invoice",
-        to: "Invoice",
+        to: "invoice",
         icon: <DescriptionOutlinedIcon />,
-        isSelected: false,
+        isdropdown: true,
         content: [
           {
             name: "List",
@@ -110,9 +110,9 @@ const drawerArray = [
       },
       {
         name: "User",
-        to: "#",
+        to: "User",
         icon: <PermIdentityOutlinedIcon />,
-        isSelected: false,
+        isdropdown: true,
         content: [
           {
             name: "List",
@@ -126,9 +126,9 @@ const drawerArray = [
       },
       {
         name: "Roles & Permissions",
-        to: "",
+        to: "Roles & Permission",
         icon: <ShieldOutlinedIcon />,
-        isSelected: false,
+        isdropdown: true,
         content: [
           {
             name: "List1",
@@ -142,9 +142,9 @@ const drawerArray = [
       },
       {
         name: "Pages",
-        to: "",
+        to: "Pages",
         icon: <DescriptionOutlinedIcon />,
-        isSelected: false,
+        isdropdown: true,
         content: [
           {
             name: "List1",
@@ -158,9 +158,9 @@ const drawerArray = [
       },
       {
         name: "Auth Pages",
-        to: "",
+        to: "Auth Page",
         icon: <LockOutlinedIcon />,
-        isSelected: false,
+        isdropdown: true,
         content: [
           {
             name: "Login",
@@ -178,9 +178,9 @@ const drawerArray = [
       },
       {
         name: "Wizard Examples",
-        to: "",
+        to: "Wizard Example",
         icon: <MoreHorizOutlinedIcon />,
-        isSelected: false,
+        isdropdown: true,
         content: [
           {
             name: "Checkout",
@@ -198,10 +198,10 @@ const drawerArray = [
       },
       {
         name: "Dialog Examples",
-        to: "",
+        to: "Dialog Example",
         icon: <ContentCopyOutlinedIcon />,
         content: null,
-        isSelected: false,
+        isdropdown: false,
       },
     ],
   },
@@ -210,23 +210,23 @@ const drawerArray = [
     items: [
       {
         name: "Typography",
-        to: "",
+        to: "Typography",
         icon: <TextFieldsOutlinedIcon />,
-        isSelected: false,
+        isdropdown: false,
         content: null,
       },
       {
         name: "Icons",
-        to: "",
+        to: "Icons",
         icon: <WorkspacesOutlinedIcon />,
-        isSelected: false,
+        isdropdown: false,
         content: null,
       },
       {
         name: "Cards",
-        to: "",
+        to: "Cards",
         icon: <CreditCardOutlinedIcon />,
-        isSelected: false,
+        isdropdown: true,
         content: [
           {
             name: "List1",
@@ -240,9 +240,9 @@ const drawerArray = [
       },
       {
         name: "Components",
-        to: "",
+        to: "Components",
         icon: <Inventory2OutlinedIcon />,
-        isSelected: false,
+        isdropdown: true,
         content: [
           {
             name: "Checkout",
@@ -265,9 +265,9 @@ const drawerArray = [
     items: [
       {
         name: "Form Elements",
-        to: "",
+        to: "Form Elements",
         icon: <AodOutlinedIcon />,
-        isSelected: false,
+        isdropdown: true,
         content: [
           {
             name: "List1",
@@ -281,38 +281,38 @@ const drawerArray = [
       },
       {
         name: "Form Layouts",
-        to: "",
+        to: "Form Layouts",
         icon: <ViewInArOutlinedIcon />,
-        isSelected: false,
+        isdropdown: false,
         content: null,
       },
       {
         name: "Form Validation",
-        to: "",
+        to: "Form Validation",
         icon: <TaskAltOutlinedIcon />,
-        isSelected: false,
+        isdropdown: false,
         content: null,
       },
       {
         name: "Form Wizard",
-        to: "",
+        to: "Form Wizard",
         icon: <ViewInArOutlinedIcon />,
-        isSelected: false,
+        isdropdown: false,
         content: null,
       },
 
       {
         name: "Table",
-        to: "",
+        to: "Table",
         icon: <WindowOutlinedIcon />,
-        isSelected: false,
+        isdropdown: false,
         content: null,
       },
       {
         name: "Mui DataGrid",
-        to: "",
+        to: "Mui DataGrid",
         icon: <GridOnOutlinedIcon />,
-        isSelected: false,
+        isdropdown: false,
         content: null,
       },
     ],
@@ -322,9 +322,9 @@ const drawerArray = [
     items: [
       {
         name: "Charts",
-        to: "",
+        to: "Charts",
         icon: <ViewInArOutlinedIcon />,
-        isSelected: false,
+        isdropdown: true,
         content: [
           {
             name: "List1",
@@ -339,16 +339,16 @@ const drawerArray = [
 
       {
         name: "Access Control",
-        to: "",
+        to: "Access Control",
         icon: <ShieldOutlinedIcon />,
-        isSelected: false,
+        isdropdown: false,
         content: null,
       },
       {
         name: "Others",
-        to: "",
+        to: "Others",
         icon: <MoreHorizOutlinedIcon />,
-        isSelected: false,
+        isdropdown: true,
         content: [
           {
             name: "List1",
@@ -395,9 +395,10 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function DrawerComponent({ positionChange, setpositionChange }) {
   const [open, setOpen] = useState(false);
-  const [selectedMenu, setselectedMenu] = useState("Home");
+  const [selectedMenu, setselectedMenu] = useState("");
   const [isSelected, setisSelected] = useState(false);
   const { isOpen, setisOpen } = useUserContext();
+  const [closeDropdown, setcloseDropdown] = useState(false);
 
   const Drawer = styled(MuiDrawer, {
     shouldForwardProp: (prop) => prop !== "open",
@@ -420,6 +421,7 @@ export default function DrawerComponent({ positionChange, setpositionChange }) {
   };
   const handleDrawerClose = () => {
     isOpen ? setOpen(true) : !positionChange && setOpen(false);
+    setcloseDropdown(false);
   };
 
   return (
@@ -493,6 +495,8 @@ export default function DrawerComponent({ positionChange, setpositionChange }) {
           isSelected={isSelected}
           setisSelected={setisSelected}
           drawerArray={drawerArray}
+          closeDropdown={closeDropdown}
+          setcloseDropdown={setcloseDropdown}
         />
       </Drawer>
     </Box>
