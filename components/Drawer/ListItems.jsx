@@ -67,7 +67,7 @@ export default function ListItems({
               />
               {open &&
                 text.content !== null &&
-                (selectedMenu === text.name && isSelected ? (
+                (selectedMenu === text.name && isSelected && closeDropdown ? (
                   <KeyboardArrowDown />
                 ) : (
                   <KeyboardArrowRight />

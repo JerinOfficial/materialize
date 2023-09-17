@@ -418,6 +418,7 @@ export default function DrawerComponent({ positionChange, setpositionChange }) {
   }));
   const handleDrawerOpen = () => {
     setOpen(true);
+    setcloseDropdown(true);
   };
   const handleDrawerClose = () => {
     isOpen ? setOpen(true) : !positionChange && setOpen(false);
