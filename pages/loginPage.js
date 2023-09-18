@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import Layout from "@/Layout/Layout";
 import style from "../styles/materialize.module.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Image from "next/image";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -19,48 +19,36 @@ import { Inter } from "next/font/google";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import FormControl from "@mui/material/FormControl";
-import IconButton from "@mui/material/IconButton";
+import Layout from "@/Layout/Layout";
 import { useRouter } from "next/router";
-import { registerUser } from "@/Actions/user";
+import { getUser } from "@/Actions/user";
+import Cookies from "js-cookie";
 import PrivateRoute from "@/components/PrivateRoute";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function RegisterPage() {
+export const logout = () => {
+  window.localStorage.clear();
+  Cookies.remove("loggedin", false);
+  localStorage.removeItem("authentication");
+  localStorage.setItem("authentication", false);
+};
+
+export default function LoginPage() {
+  const router = useRouter();
   const [hidePw, sethidePw] = useState(false);
   const [formDatas, setformDatas] = useState({
-    name: "",
-    email: "",
-    password: "",
+    email: "admin@materialize.com",
+    password: "admin",
   });
-  const router = useRouter();
-  const { email, password, name } = formDatas;
-  const [nameErr, setnameErr] = useState(false);
+  const { email, password } = formDatas;
   const [emailErr, setemailErr] = useState(false);
   const [passwordErr, setpasswordErr] = useState(false);
   const [errAlert, seterrAlert] = useState({
-    name: "name is a required field",
     email: "email is a required field",
     password: "password must be at least 5 characters",
   });
 
-  const nameOnchangeHandler = (e) => {
-    setformDatas({ ...formDatas, name: e.target.value });
-  };
-  const emailOnchangeHandler = (e) => {
-    setformDatas({ ...formDatas, email: e.target.value });
-  };
-  const passwordOnchangeHandler = (e) => {
-    setformDatas({ ...formDatas, password: e.target.value });
-  };
-
-  const unameBlurHandler = () => {
-    if (name === "") {
-      setnameErr(true);
-    } else {
-      setnameErr(false);
-    }
-  };
   const emailBlurHandler = () => {
     if (email === "") {
       setemailErr(true);
@@ -81,6 +69,13 @@ export default function RegisterPage() {
     }
   };
 
+  const emailOnchangeHandler = (e) => {
+    setformDatas({ ...formDatas, email: e.target.value });
+  };
+  const passwordOnchangeHandler = (e) => {
+    setformDatas({ ...formDatas, password: e.target.value });
+  };
+
   const validation = () => {
     if (email === "") {
       setemailErr(true);
@@ -97,40 +92,41 @@ export default function RegisterPage() {
     } else {
       setpasswordErr(false);
     }
-    if (name === "") {
-      setnameErr(true);
-    } else {
-      setnameErr(false);
-    }
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (email !== "" && password !== "" && name !== "") {
-      const data = {
-        name: name,
-        email: email,
-        password: password,
-      };
-      registerUser(data);
-      if (registerUser(data).status === "success") {
-        alert("User Registered Successfully");
-        router.push("/");
+    if (email !== "" && password !== "") {
+      if (getUser() !== null) {
+        if (email === getUser().email && password === getUser().password) {
+          Cookies.set("loggedin", true);
+          localStorage.removeItem("authentication");
+          localStorage.setItem("authentication", true);
+          router.push("/dashBoard");
+        } else {
+          if (email !== getUser().email) {
+            setemailErr(true);
+            seterrAlert({ ...errAlert, email: "User not found" });
+          }
+          if (password !== getUser().password) {
+            setpasswordErr(true);
+            seterrAlert({ ...errAlert, password: "password incorrect" });
+          }
+        }
+      } else {
+        // console.log(formDatas, "form");
+        setemailErr(false);
+        setpasswordErr(false);
+        validation();
+        alert("User not found");
       }
-      // console.log(formDatas, "form");
-      setemailErr(false);
-      setpasswordErr(false);
-      setnameErr(false);
-      validation();
-      setformDatas({
-        name: "",
-        email: "",
-        password: "",
-      });
     } else {
-      setemailErr(true);
-      setpasswordErr(true);
-      setnameErr(true);
+      if (email == "") {
+        setemailErr(true);
+      }
+      if (password == "") {
+        setpasswordErr(true);
+      }
     }
   };
 
@@ -141,7 +137,7 @@ export default function RegisterPage() {
           <Image
             priority="high"
             alt="mask"
-            src={require("../assets/register-mask.png")}
+            src={require("../assets/auth-v2-login-mask-light.png")}
           />
         }
         image={
@@ -149,7 +145,7 @@ export default function RegisterPage() {
             priority="high"
             alt="bg"
             className={style.bgImg}
-            src={require("../assets/registerBg.png")}
+            src={require("../assets/bg.png")}
           />
         }
       >
@@ -182,7 +178,7 @@ export default function RegisterPage() {
                   letterSpacing: "0.18px",
                 }}
               >
-                Adventure starts here 🚀
+                Welcome to Materialize! 👋🏻
               </Typography>
               <Typography
                 sx={{
@@ -191,10 +187,32 @@ export default function RegisterPage() {
                   letterSpacing: "0.15px",
                 }}
               >
-                Make your app management easy and fun!
+                Please sign-in to your account and start the adventure
               </Typography>
             </Box>
-
+            <Box
+              sx={{
+                color: "rgb(102, 108, 255)",
+                backgroundColor: "rgba(102, 108, 255, 0.12)",
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                fontSize: "12px",
+                letterSpacing: ".4px",
+                padding: "12px 16px",
+                borderRadius: "8px",
+                marginBottom: "24px",
+              }}
+            >
+              <span>
+                Admin: <strong>admin@materialize.com</strong> / Pass:
+                <strong>admin</strong>
+              </span>
+              <span>
+                Client: <strong>client@materialize.com</strong> / Pass:
+                <strong>client</strong>
+              </span>
+            </Box>
             <form
               onSubmit={(e) => {
                 submitHandler(e);
@@ -202,30 +220,12 @@ export default function RegisterPage() {
               style={{ display: "flex", gap: "15px", flexDirection: "column" }}
             >
               <TextField
-                autoComplete="username"
-                onBlur={unameBlurHandler}
-                error={nameErr && true}
-                type="text"
-                label="Username"
-                placeholder="johndoe"
-                helperText={nameErr && errAlert.name}
-                value={name}
-                onChange={nameOnchangeHandler}
-                inputProps={{ style: { color: "#677086" } }}
-                InputProps={{
-                  style: {
-                    borderRadius: "8px",
-                  },
-                }}
-                autoFocus
-              />
-              <TextField
                 autoComplete="email"
                 onBlur={emailBlurHandler}
-                error={emailErr && true}
+                error={emailErr && "true"}
                 type="email"
                 label="Email"
-                placeholder="user@materialize.com"
+                placeholder="admin@materialize.com"
                 helperText={emailErr && errAlert.email}
                 value={email}
                 onChange={emailOnchangeHandler}
@@ -235,10 +235,11 @@ export default function RegisterPage() {
                     borderRadius: "8px",
                   },
                 }}
+                autoFocus
               />
               <FormControl sx={{ position: "relative" }}>
                 <TextField
-                  autoComplete="current-password"
+                  autoComplete="password"
                   onBlur={passwordBlurHandler}
                   inputProps={{
                     style: {
@@ -254,7 +255,7 @@ export default function RegisterPage() {
                     },
                   }}
                   sx={{ color: "#95858d" }}
-                  error={passwordErr && true}
+                  error={passwordErr && "true"}
                   type={hidePw ? "text" : "password"}
                   label="Password"
                   helperText={passwordErr && errAlert.password}
@@ -264,7 +265,6 @@ export default function RegisterPage() {
                 <IconButton
                   sx={{ position: "absolute", right: 15, top: 10 }}
                   edge="end"
-                  type="submit"
                   onClick={() => {
                     sethidePw((p) => !p);
                   }}
@@ -281,23 +281,26 @@ export default function RegisterPage() {
                 className={style.resBox1}
                 style={{
                   display: "flex",
+                  justifyContent: "space-between",
                   marginBottom: "1px",
                 }}
               >
                 <FormControlLabel
                   control={<Checkbox defaultChecked />}
-                  label="I agree to"
+                  label="Remember Me"
                   sx={{ color: "#4C4E6499" }}
                   className={style.resPara}
                 />
-                <Link
-                  href="#"
-                  underline="none"
+                <p
+                  style={{ color: "rgb(102, 108, 255)", cursor: "pointer" }}
+                  onClick={() => {
+                    router.push("/forgetPwPage");
+                  }}
                   sx={{ fontSize: "14px" }}
                   className={style.resPara}
                 >
-                  privacy policy & terms
-                </Link>
+                  Forgot Password?
+                </p>
               </div>
 
               <Button
@@ -310,7 +313,7 @@ export default function RegisterPage() {
                   borderRadius: "10px",
                 }}
               >
-                sign up
+                login
               </Button>
             </form>
             <div
@@ -330,16 +333,16 @@ export default function RegisterPage() {
                 className={`${inter.className}`}
                 sx={{ color: "#4C4E6499" }}
               >
-                Already have an account?
+                New on our platform?
               </Typography>
               <p
                 style={{ color: "rgb(102, 108, 255)", cursor: "pointer" }}
                 onClick={() => {
-                  router.push("/loginPage");
+                  router.push("/registerPage");
                 }}
                 className={`${inter.className}`}
               >
-                Sign in instead
+                Create an account
               </p>
             </div>
             <Divider

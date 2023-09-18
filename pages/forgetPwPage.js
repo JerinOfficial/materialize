@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "@mui/material/Link";
 import { Inter } from "next/font/google";
 import { useRouter } from "next/router";
+import PrivateRoute from "@/components/PrivateRoute";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -60,127 +61,129 @@ export default function ForgetPwPage() {
   };
 
   return (
-    <Layout
-      maskImg={
-        <Image
-          priority="high"
-          alt="mask"
-          src={require("../assets/forgetpw-mask.png")}
-        />
-      }
-      image={
-        <Image
-          priority="high"
-          alt="bg"
-          className={style.bgImg}
-          src={require("../assets/forgetpw-Bg.png")}
-        />
-      }
-    >
-      <Stack className={style.formBox} sx={{ width: "100%" }}>
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            height: "86vh",
-          }}
-        >
+    <PrivateRoute>
+      <Layout
+        maskImg={
+          <Image
+            priority="high"
+            alt="mask"
+            src={require("../assets/forgetpw-mask.png")}
+          />
+        }
+        image={
+          <Image
+            priority="high"
+            alt="bg"
+            className={style.bgImg}
+            src={require("../assets/forgetpw-Bg.png")}
+          />
+        }
+      >
+        <Stack className={style.formBox} sx={{ width: "100%" }}>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              borderRadius: "8px",
-              marginBottom: "24px",
-              gap: "6px",
-            }}
-          >
-            <Typography
-              className={style.formHeading}
-              variant="h5"
-              sx={{
-                fontSize: "24px",
-                fontWeight: 600,
-                color: "rgba(76, 78, 100, 0.87)",
-                letterSpacing: "0.18px",
-              }}
-            >
-              Forgot Password? 🔒
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "14px",
-                color: "rgba(76, 78, 100, 0.6)",
-                letterSpacing: "0.15px",
-              }}
-            >
-              Enter your email and we′ll send you instructions to reset your
-              password
-            </Typography>
-          </Box>
-
-          <form
-            onSubmit={(e) => {
-              submitHandler(e);
-            }}
-            style={{ display: "flex", gap: "15px", flexDirection: "column" }}
-          >
-            <TextField
-              onBlur={emailBlurHandler}
-              error={emailErr && true}
-              type="email"
-              label="Email"
-              helperText={emailErr && errAlert}
-              value={email}
-              onChange={emailOnchangeHandler}
-              inputProps={{ style: { color: "#677086" } }}
-              InputProps={{
-                style: {
-                  borderRadius: "8px",
-                },
-              }}
-            />
-
-            <Button
-              type="submit"
-              variant="contained"
-              style={{
-                backgroundColor: "#666cff",
-                marginBottom: "28px",
-                padding: "8px 26px",
-                borderRadius: "10px",
-              }}
-            >
-              send reset link
-            </Button>
-          </form>
-          <div
-            className={style.resBox2}
-            style={{
               width: "100%",
               display: "flex",
               justifyContent: "center",
-              alignItems: "center",
-              gap: "6px",
-              fontWeight: 400,
-              letterSpacing: "0.15px",
-              fontSize: "16px",
+              flexDirection: "column",
+              height: "86vh",
             }}
           >
-            <p
-              style={{ color: "rgb(102, 108, 255)", cursor: "pointer" }}
-              onClick={() => {
-                router.push("/");
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                borderRadius: "8px",
+                marginBottom: "24px",
+                gap: "6px",
               }}
-              className={`${inter.className}`}
             >
-              {"< Back to login"}
-            </p>
-          </div>
-        </Box>
-      </Stack>
-    </Layout>
+              <Typography
+                className={style.formHeading}
+                variant="h5"
+                sx={{
+                  fontSize: "24px",
+                  fontWeight: 600,
+                  color: "rgba(76, 78, 100, 0.87)",
+                  letterSpacing: "0.18px",
+                }}
+              >
+                Forgot Password? 🔒
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  color: "rgba(76, 78, 100, 0.6)",
+                  letterSpacing: "0.15px",
+                }}
+              >
+                Enter your email and we′ll send you instructions to reset your
+                password
+              </Typography>
+            </Box>
+
+            <form
+              onSubmit={(e) => {
+                submitHandler(e);
+              }}
+              style={{ display: "flex", gap: "15px", flexDirection: "column" }}
+            >
+              <TextField
+                onBlur={emailBlurHandler}
+                error={emailErr && true}
+                type="email"
+                label="Email"
+                helperText={emailErr && errAlert}
+                value={email}
+                onChange={emailOnchangeHandler}
+                inputProps={{ style: { color: "#677086" } }}
+                InputProps={{
+                  style: {
+                    borderRadius: "8px",
+                  },
+                }}
+              />
+
+              <Button
+                type="submit"
+                variant="contained"
+                style={{
+                  backgroundColor: "#666cff",
+                  marginBottom: "28px",
+                  padding: "8px 26px",
+                  borderRadius: "10px",
+                }}
+              >
+                send reset link
+              </Button>
+            </form>
+            <div
+              className={style.resBox2}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "6px",
+                fontWeight: 400,
+                letterSpacing: "0.15px",
+                fontSize: "16px",
+              }}
+            >
+              <p
+                style={{ color: "rgb(102, 108, 255)", cursor: "pointer" }}
+                onClick={() => {
+                  router.push("/loginPage");
+                }}
+                className={`${inter.className}`}
+              >
+                {"< Back to login"}
+              </p>
+            </div>
+          </Box>
+        </Stack>
+      </Layout>
+    </PrivateRoute>
   );
 }

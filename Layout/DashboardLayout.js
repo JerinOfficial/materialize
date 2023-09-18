@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setisloading(false);
-    }, 1000);
+    }, 500);
     return () => {
       clearTimeout(timer);
     };

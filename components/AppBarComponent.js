@@ -21,7 +21,7 @@ import Style from "../Layout/dashboard.module.css";
 import { useUserContext } from "@/pages/_app";
 import Avatar from "@mui/material/Avatar";
 import { useRouter } from "next/router";
-import { logout } from "@/pages/homePage";
+import { logout } from "@/pages/loginPage";
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
