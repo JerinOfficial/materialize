@@ -21,8 +21,15 @@ import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined
 import FormControl from "@mui/material/FormControl";
 import Layout from "@/Layout/Layout";
 import { useRouter } from "next/router";
+import { getUser } from "@/Actions/user";
+import Cookies from "js-cookie";
 
 const inter = Inter({ subsets: ["latin"] });
+
+export const logout = () => {
+  window.localStorage.clear();
+  Cookies.remove("loggedin", false);
+};
 
 export default function HomePage() {
   const router = useRouter();
@@ -87,14 +94,34 @@ export default function HomePage() {
   const submitHandler = (e) => {
     e.preventDefault();
     if (email !== "" && password !== "") {
-      console.log(formDatas, "form");
-      router.push("/dashBoard");
-      setemailErr(false);
-      setpasswordErr(false);
-      validation();
+      if (getUser() !== null) {
+        if (email === getUser().email && password === getUser().password) {
+          Cookies.set("loggedin", true);
+          router.push("/dashBoard");
+        } else {
+          if (email !== getUser().email) {
+            setemailErr(true);
+            seterrAlert({ ...errAlert, email: "User not found" });
+          }
+          if (password !== getUser().password) {
+            setpasswordErr(true);
+            seterrAlert({ ...errAlert, password: "password incorrect" });
+          }
+        }
+      } else {
+        console.log(formDatas, "form");
+        setemailErr(false);
+        setpasswordErr(false);
+        validation();
+        alert("User not found");
+      }
     } else {
-      setemailErr(true);
-      setpasswordErr(true);
+      if (email == "") {
+        setemailErr(true);
+      }
+      if (password == "") {
+        setpasswordErr(true);
+      }
     }
   };
 

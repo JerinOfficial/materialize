@@ -21,6 +21,7 @@ import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined
 import FormControl from "@mui/material/FormControl";
 import IconButton from "@mui/material/IconButton";
 import { useRouter } from "next/router";
+import { registerUser } from "@/Actions/user";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -105,11 +106,26 @@ export default function RegisterPage() {
   const submitHandler = (e) => {
     e.preventDefault();
     if (email !== "" && password !== "" && name !== "") {
+      const data = {
+        name: name,
+        email: email,
+        password: password,
+      };
+      registerUser(data);
+      if (registerUser(data).status === "success") {
+        alert("User Registered Successfully");
+        router.push("/");
+      }
       console.log(formDatas, "form");
       setemailErr(false);
       setpasswordErr(false);
       setnameErr(false);
       validation();
+      setformDatas({
+        name: "",
+        email: "",
+        password: "",
+      });
     } else {
       setemailErr(true);
       setpasswordErr(true);

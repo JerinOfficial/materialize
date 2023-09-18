@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { styled, alpha } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -21,6 +21,7 @@ import Style from "../Layout/dashboard.module.css";
 import { useUserContext } from "@/pages/_app";
 import Avatar from "@mui/material/Avatar";
 import { useRouter } from "next/router";
+import { logout } from "@/pages/homePage";
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
@@ -83,6 +84,7 @@ export default function AppBarComponent({ handleScroll }) {
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       <MenuItem
         onClick={() => {
+          logout();
           router.push("/");
         }}
       >
