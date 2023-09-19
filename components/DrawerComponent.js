@@ -393,7 +393,11 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-export default function DrawerComponent({ positionChange, setpositionChange }) {
+export default function DrawerComponent({
+  positionChange,
+  setpositionChange,
+  setisloading,
+}) {
   const [open, setOpen] = useState(false);
   const [selectedMenu, setselectedMenu] = useState("");
   const [isSelected, setisSelected] = useState(false);
@@ -489,6 +493,7 @@ export default function DrawerComponent({ positionChange, setpositionChange }) {
         </DrawerHeader>
 
         <AllMenus
+          setisloading={setisloading}
           selectedMenu={selectedMenu}
           setselectedMenu={setselectedMenu}
           open={open}

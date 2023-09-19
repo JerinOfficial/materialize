@@ -16,6 +16,7 @@ export default function ListItems({
   array,
   closeDropdown,
   setcloseDropdown,
+  setisloading,
 }) {
   const router = useRouter();
   return (
@@ -76,6 +77,7 @@ export default function ListItems({
           </ListItem>
           <>
             <DropDown
+              setisloading={setisloading}
               open={selectedMenu === text.name && closeDropdown}
               array={text.content}
             />

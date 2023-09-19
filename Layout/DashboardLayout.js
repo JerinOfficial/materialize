@@ -3,13 +3,14 @@ import DrawerComponent from "../components/DrawerComponent";
 import AppBarComponent from "@/components/AppBarComponent";
 import Style from "../Layout/dashboard.module.css";
 import Box from "@mui/material/Box";
-import PrivateRoute from "@/components/PrivateRoute";
+import LinearProgress from "@mui/material/LinearProgress";
 import Loader from "@/components/Loader";
 
 export default function DashboardLayout({ children }) {
   const [isScroll, setisScroll] = useState(false);
   const [positionChange, setpositionChange] = useState(false);
   const [isloading, setisloading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const timer = setTimeout(() => {
       setisloading(false);
@@ -33,13 +34,26 @@ export default function DashboardLayout({ children }) {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      setIsLoading(true);
+    };
+
+    window.onbeforeunload = handleBeforeUnload;
+
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, []);
+
   return (
     <>
-      {isloading ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <div className={Style.main}>
           <DrawerComponent
+            setisloading={setisloading}
             positionChange={positionChange}
             setpositionChange={setpositionChange}
           />
@@ -47,7 +61,20 @@ export default function DashboardLayout({ children }) {
             className={Style.container}
             style={{ width: positionChange ? "84%" : "100%" }}
           >
+            {isloading && (
+              <Box
+                sx={{
+                  width: "100%",
+                  zIndex: 100,
+                  position: "absolute",
+                  top: 0,
+                }}
+              >
+                <LinearProgress />
+              </Box>
+            )}
             <AppBarComponent handleScroll={isScroll} />
+
             <Box className={Style.ChildContainer}>{children}</Box>
           </div>
         </div>

@@ -13,6 +13,7 @@ export default function AllMenus({
   drawerArray,
   closeDropdown,
   setcloseDropdown,
+  setisloading,
 }) {
   return (
     <>
@@ -45,6 +46,7 @@ export default function AllMenus({
               }}
             >
               <ListItems
+                setisloading={setisloading}
                 array={items.items}
                 selectedMenu={selectedMenu}
                 setselectedMenu={setselectedMenu}

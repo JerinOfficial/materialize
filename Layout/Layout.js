@@ -1,80 +1,99 @@
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "../styles/materialize.module.css";
 import Logo from "../assets/Logo";
 import Typography from "@mui/material/Typography";
+import Loader from "@/components/Loader";
 
 export default function Layout({ maskImg, children, image }) {
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      setIsLoading(true);
+    };
+
+    window.onbeforeunload = handleBeforeUnload;
+
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, []);
   return (
-    <Stack
-      direction="row"
-      className={style.body}
-      sx={{
-        background: "#f7f7f9",
-        padding: 0,
-        margin: 0,
-        display: "flex",
-      }}
-    >
-      <div className={style.contentContainer}>
-        <Box
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Stack
+          direction="row"
+          className={style.body}
           sx={{
-            position: "absolute",
-            top: "30px",
-            left: "40px",
+            background: "#f7f7f9",
+            padding: 0,
+            margin: 0,
             display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "8px",
           }}
         >
-          <Logo />
-          <Typography
-            variant="h6"
-            sx={{
-              fontSize: "24px",
-              fontWeight: 600,
-              color: "rgba(76, 78, 100, 0.87)",
-              letterSpacing: "0.18px",
-            }}
-          >
-            Materialize
-          </Typography>
-        </Box>
-        <div className={style.imageCover}>
-          <Stack className={style.imageContainer}>{image}</Stack>
-        </div>
-        <div className={style.maskImgContainer}>{maskImg}</div>
-      </div>
-      <div
-        className={style.formContainer}
-        style={{
-          padding: "28px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-        }}
-      >
-        <Stack className={style.resFormContainer}>
-          <div className={style.resForm}>
-            <Logo />
-            <Typography
-              variant="h6"
+          <div className={style.contentContainer}>
+            <Box
               sx={{
-                fontSize: "24px",
-                fontWeight: 600,
-                color: "rgba(76, 78, 100, 0.87)",
-                letterSpacing: "0.18px",
+                position: "absolute",
+                top: "30px",
+                left: "40px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "8px",
               }}
             >
-              Materialize
-            </Typography>
+              <Logo />
+              <Typography
+                variant="h6"
+                sx={{
+                  fontSize: "24px",
+                  fontWeight: 600,
+                  color: "rgba(76, 78, 100, 0.87)",
+                  letterSpacing: "0.18px",
+                }}
+              >
+                Materialize
+              </Typography>
+            </Box>
+            <div className={style.imageCover}>
+              <Stack className={style.imageContainer}>{image}</Stack>
+            </div>
+            <div className={style.maskImgContainer}>{maskImg}</div>
+          </div>
+          <div
+            className={style.formContainer}
+            style={{
+              padding: "28px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
+          >
+            <Stack className={style.resFormContainer}>
+              <div className={style.resForm}>
+                <Logo />
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: "24px",
+                    fontWeight: 600,
+                    color: "rgba(76, 78, 100, 0.87)",
+                    letterSpacing: "0.18px",
+                  }}
+                >
+                  Materialize
+                </Typography>
+              </div>
+            </Stack>
+            {children}
           </div>
         </Stack>
-        {children}
-      </div>
-    </Stack>
+      )}
+    </>
   );
 }

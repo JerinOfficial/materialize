@@ -23,7 +23,6 @@ import Layout from "@/Layout/Layout";
 import { useRouter } from "next/router";
 import { getUser } from "@/Actions/user";
 import Cookies from "js-cookie";
-import PrivateRoute from "@/components/PrivateRoute";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -131,254 +130,252 @@ export default function LoginPage() {
   };
 
   return (
-    <PrivateRoute>
-      <Layout
-        maskImg={
-          <Image
-            priority="high"
-            alt="mask"
-            src={require("../assets/auth-v2-login-mask-light.png")}
-          />
-        }
-        image={
-          <Image
-            priority="high"
-            alt="bg"
-            className={style.bgImg}
-            src={require("../assets/bg.png")}
-          />
-        }
-      >
-        <Stack className={style.formBox} sx={{ width: "100%" }}>
+    <Layout
+      maskImg={
+        <Image
+          priority="high"
+          alt="mask"
+          src={require("../assets/auth-v2-login-mask-light.png")}
+        />
+      }
+      image={
+        <Image
+          priority="high"
+          alt="bg"
+          className={style.bgImg}
+          src={require("../assets/bg.png")}
+        />
+      }
+    >
+      <Stack className={style.formBox} sx={{ width: "100%" }}>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
           <Box
             sx={{
-              width: "100%",
               display: "flex",
               justifyContent: "center",
               flexDirection: "column",
+              borderRadius: "8px",
+              marginBottom: "24px",
+              gap: "6px",
             }}
           >
-            <Box
+            <Typography
+              className={style.formHeading}
+              variant="h5"
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
-                borderRadius: "8px",
-                marginBottom: "24px",
-                gap: "6px",
+                fontSize: "24px",
+                fontWeight: 600,
+                color: "rgba(76, 78, 100, 0.87)",
+                letterSpacing: "0.18px",
               }}
             >
-              <Typography
-                className={style.formHeading}
-                variant="h5"
-                sx={{
-                  fontSize: "24px",
-                  fontWeight: 600,
-                  color: "rgba(76, 78, 100, 0.87)",
-                  letterSpacing: "0.18px",
-                }}
-              >
-                Welcome to Materialize! 👋🏻
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "rgba(76, 78, 100, 0.6)",
-                  letterSpacing: "0.15px",
-                }}
-              >
-                Please sign-in to your account and start the adventure
-              </Typography>
-            </Box>
-            <Box
+              Welcome to Materialize! 👋🏻
+            </Typography>
+            <Typography
               sx={{
-                color: "rgb(102, 108, 255)",
-                backgroundColor: "rgba(102, 108, 255, 0.12)",
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
-                fontSize: "12px",
-                letterSpacing: ".4px",
-                padding: "12px 16px",
-                borderRadius: "8px",
-                marginBottom: "24px",
+                fontSize: "14px",
+                color: "rgba(76, 78, 100, 0.6)",
+                letterSpacing: "0.15px",
               }}
             >
-              <span>
-                Admin: <strong>admin@materialize.com</strong> / Pass:
-                <strong>admin</strong>
-              </span>
-              <span>
-                Client: <strong>client@materialize.com</strong> / Pass:
-                <strong>client</strong>
-              </span>
-            </Box>
-            <form
-              onSubmit={(e) => {
-                submitHandler(e);
+              Please sign-in to your account and start the adventure
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              color: "rgb(102, 108, 255)",
+              backgroundColor: "rgba(102, 108, 255, 0.12)",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              fontSize: "12px",
+              letterSpacing: ".4px",
+              padding: "12px 16px",
+              borderRadius: "8px",
+              marginBottom: "24px",
+            }}
+          >
+            <span>
+              Admin: <strong>admin@materialize.com</strong> / Pass:
+              <strong>admin</strong>
+            </span>
+            <span>
+              Client: <strong>client@materialize.com</strong> / Pass:
+              <strong>client</strong>
+            </span>
+          </Box>
+          <form
+            onSubmit={(e) => {
+              submitHandler(e);
+            }}
+            style={{ display: "flex", gap: "15px", flexDirection: "column" }}
+          >
+            <TextField
+              autoComplete="email"
+              onBlur={emailBlurHandler}
+              error={emailErr && "true"}
+              type="email"
+              label="Email"
+              placeholder="admin@materialize.com"
+              helperText={emailErr && errAlert.email}
+              value={email}
+              onChange={emailOnchangeHandler}
+              inputProps={{ style: { color: "#677086" } }}
+              InputProps={{
+                style: {
+                  borderRadius: "8px",
+                },
               }}
-              style={{ display: "flex", gap: "15px", flexDirection: "column" }}
-            >
+              autoFocus
+            />
+            <FormControl sx={{ position: "relative" }}>
               <TextField
-                autoComplete="email"
-                onBlur={emailBlurHandler}
-                error={emailErr && "true"}
-                type="email"
-                label="Email"
-                placeholder="admin@materialize.com"
-                helperText={emailErr && errAlert.email}
-                value={email}
-                onChange={emailOnchangeHandler}
-                inputProps={{ style: { color: "#677086" } }}
+                autoComplete="password"
+                onBlur={passwordBlurHandler}
+                inputProps={{
+                  style: {
+                    letterSpacing: hidePw ? "" : "3px",
+                    color: "#677086",
+                    fontSize: hidePw ? "" : "large",
+                    padding: hidePw ? "" : "15px",
+                  },
+                }}
                 InputProps={{
                   style: {
                     borderRadius: "8px",
                   },
                 }}
-                autoFocus
+                sx={{ color: "#95858d" }}
+                error={passwordErr && "true"}
+                type={hidePw ? "text" : "password"}
+                label="Password"
+                helperText={passwordErr && errAlert.password}
+                value={password}
+                onChange={passwordOnchangeHandler}
               />
-              <FormControl sx={{ position: "relative" }}>
-                <TextField
-                  autoComplete="password"
-                  onBlur={passwordBlurHandler}
-                  inputProps={{
-                    style: {
-                      letterSpacing: hidePw ? "" : "3px",
-                      color: "#677086",
-                      fontSize: hidePw ? "" : "large",
-                      padding: hidePw ? "" : "15px",
-                    },
-                  }}
-                  InputProps={{
-                    style: {
-                      borderRadius: "8px",
-                    },
-                  }}
-                  sx={{ color: "#95858d" }}
-                  error={passwordErr && "true"}
-                  type={hidePw ? "text" : "password"}
-                  label="Password"
-                  helperText={passwordErr && errAlert.password}
-                  value={password}
-                  onChange={passwordOnchangeHandler}
-                />
-                <IconButton
-                  sx={{ position: "absolute", right: 15, top: 10 }}
-                  edge="end"
-                  onClick={() => {
-                    sethidePw((p) => !p);
-                  }}
-                >
-                  {hidePw ? (
-                    <VisibilityOutlinedIcon />
-                  ) : (
-                    <VisibilityOffOutlinedIcon />
-                  )}
-                </IconButton>
-              </FormControl>
-
-              <div
-                className={style.resBox1}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginBottom: "1px",
+              <IconButton
+                sx={{ position: "absolute", right: 15, top: 10 }}
+                edge="end"
+                onClick={() => {
+                  sethidePw((p) => !p);
                 }}
               >
-                <FormControlLabel
-                  control={<Checkbox defaultChecked />}
-                  label="Remember Me"
-                  sx={{ color: "#4C4E6499" }}
-                  className={style.resPara}
-                />
-                <p
-                  style={{ color: "rgb(102, 108, 255)", cursor: "pointer" }}
-                  onClick={() => {
-                    router.push("/forgetPwPage");
-                  }}
-                  sx={{ fontSize: "14px" }}
-                  className={style.resPara}
-                >
-                  Forgot Password?
-                </p>
-              </div>
+                {hidePw ? (
+                  <VisibilityOutlinedIcon />
+                ) : (
+                  <VisibilityOffOutlinedIcon />
+                )}
+              </IconButton>
+            </FormControl>
 
-              <Button
-                type="submit"
-                variant="contained"
-                style={{
-                  backgroundColor: "#666cff",
-                  marginBottom: "28px",
-                  padding: "8px 26px",
-                  borderRadius: "10px",
-                }}
-              >
-                login
-              </Button>
-            </form>
             <div
-              className={style.resBox2}
+              className={style.resBox1}
               style={{
-                width: "100%",
                 display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "6px",
-                fontWeight: 400,
-                letterSpacing: "0.15px",
-                fontSize: "16px",
+                justifyContent: "space-between",
+                marginBottom: "1px",
               }}
             >
-              <Typography
-                className={`${inter.className}`}
+              <FormControlLabel
+                control={<Checkbox defaultChecked />}
+                label="Remember Me"
                 sx={{ color: "#4C4E6499" }}
-              >
-                New on our platform?
-              </Typography>
+                className={style.resPara}
+              />
               <p
                 style={{ color: "rgb(102, 108, 255)", cursor: "pointer" }}
                 onClick={() => {
-                  router.push("/registerPage");
+                  router.push("/forgetPwPage");
                 }}
-                className={`${inter.className}`}
+                sx={{ fontSize: "14px" }}
+                className={style.resPara}
               >
-                Create an account
+                Forgot Password?
               </p>
             </div>
-            <Divider
-              sx={{
-                fontSize: "16px",
-                color: "#4C4E64DE",
-                textAlign: "center",
-                padding: "20px 0 30px",
+
+            <Button
+              type="submit"
+              variant="contained"
+              style={{
+                backgroundColor: "#666cff",
+                marginBottom: "28px",
+                padding: "8px 26px",
+                borderRadius: "10px",
               }}
             >
-              <Typography variant="p">or</Typography>
-            </Divider>
-            <Box
-              sx={{
-                height: "40px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+              login
+            </Button>
+          </form>
+          <div
+            className={style.resBox2}
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "6px",
+              fontWeight: 400,
+              letterSpacing: "0.15px",
+              fontSize: "16px",
+            }}
+          >
+            <Typography
+              className={`${inter.className}`}
+              sx={{ color: "#4C4E6499" }}
             >
-              <IconButton>
-                <Facebook sx={{ color: "#497ce2" }} />
-              </IconButton>
-              <IconButton>
-                <Twitter sx={{ color: "#1da1f2" }} />
-              </IconButton>
-              <IconButton>
-                <GitHub sx={{ color: "#272727" }} />
-              </IconButton>
-              <IconButton>
-                <GoogleIcon sx={{ color: "#dc483b" }} />
-              </IconButton>
-            </Box>
+              New on our platform?
+            </Typography>
+            <p
+              style={{ color: "rgb(102, 108, 255)", cursor: "pointer" }}
+              onClick={() => {
+                router.push("/registerPage");
+              }}
+              className={`${inter.className}`}
+            >
+              Create an account
+            </p>
+          </div>
+          <Divider
+            sx={{
+              fontSize: "16px",
+              color: "#4C4E64DE",
+              textAlign: "center",
+              padding: "20px 0 30px",
+            }}
+          >
+            <Typography variant="p">or</Typography>
+          </Divider>
+          <Box
+            sx={{
+              height: "40px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <IconButton>
+              <Facebook sx={{ color: "#497ce2" }} />
+            </IconButton>
+            <IconButton>
+              <Twitter sx={{ color: "#1da1f2" }} />
+            </IconButton>
+            <IconButton>
+              <GitHub sx={{ color: "#272727" }} />
+            </IconButton>
+            <IconButton>
+              <GoogleIcon sx={{ color: "#dc483b" }} />
+            </IconButton>
           </Box>
-        </Stack>
-      </Layout>
-    </PrivateRoute>
+        </Box>
+      </Stack>
+    </Layout>
   );
 }

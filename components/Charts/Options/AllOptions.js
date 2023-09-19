@@ -477,12 +477,12 @@ export const performanceOption = {
   radar: {
     // shape: 'circle',
     indicator: [
-      { name: "Sales", max: 6500 },
-      { name: "Administration", max: 16000 },
-      { name: "Information Technology", max: 30000 },
-      { name: "Customer Support", max: 38000 },
-      { name: "Development", max: 52000 },
-      { name: "Marketing", max: 25000 },
+      { name: "Jan", max: 10 },
+      { name: "Jun", max: 10 },
+      { name: "May", max: 10 },
+      { name: "Apr", max: 10 },
+      { name: "Mar", max: 10 },
+      { name: "Feb", max: 10 },
     ],
   },
   series: [
@@ -491,12 +491,12 @@ export const performanceOption = {
       type: "radar",
       data: [
         {
-          value: [4200, 3000, 20000, 35000, 50000, 18000],
-          name: "Allocated Budget",
+          value: [9, 7, 9, 6, 6, 7],
+          name: "Net Worth",
         },
         {
-          value: [5000, 14000, 28000, 26000, 42000, 21000],
-          name: "Actual Spending",
+          value: [7, 8, 7, 8, 7, 8],
+          name: "Income",
         },
       ],
     },

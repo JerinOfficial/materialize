@@ -22,7 +22,6 @@ import FormControl from "@mui/material/FormControl";
 import IconButton from "@mui/material/IconButton";
 import { useRouter } from "next/router";
 import { registerUser } from "@/Actions/user";
-import PrivateRoute from "@/components/PrivateRoute";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -135,7 +134,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <PrivateRoute>
+  
       <Layout
         maskImg={
           <Image
@@ -376,6 +375,5 @@ export default function RegisterPage() {
           </Box>
         </Stack>
       </Layout>
-    </PrivateRoute>
   );
 }

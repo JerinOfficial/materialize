@@ -23,6 +23,7 @@ import {
   socialOption,
   totalProfitOption,
 } from "@/components/Charts/Options/AllOptions";
+import Loader from "@/components/Loader";
 
 export default function DashBoard() {
   return (

@@ -3,7 +3,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { useRouter } from "next/router";
 
-export default function DropDown({ array, open }) {
+export default function DropDown({ array, open, setisloading }) {
   const router = useRouter();
   return (
     <>
@@ -13,6 +13,7 @@ export default function DropDown({ array, open }) {
             hidden={!open}
             onClick={() => {
               router.push(item.to);
+              setisloading(true);
             }}
             selected={router.pathname === item.to}
             key={index}
